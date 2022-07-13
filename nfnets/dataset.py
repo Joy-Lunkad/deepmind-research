@@ -113,7 +113,8 @@ def load(
                                            from_=start, to=end, unit='abs')
 
     ds = tfds.load('imagenet2012:5.*.*', split=tfds_split,
-                   decoders={'image': tfds.decode.SkipDecoding()})
+                   decoders={'image': tfds.decode.SkipDecoding()},
+                   data_dir='gs://aim-imagenet', download=False)
   else:
     raise ValueError('Only imagenet is presently supported for this dataset.')
 
