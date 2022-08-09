@@ -68,6 +68,7 @@ def load(
     augment_name: Optional[str] = None,
     eval_preproc: str = 'crop_resize',
     augment_before_mix: bool = True,
+    data_dir: str = 'gs://aimimagenet'
 ) -> Generator[Batch, None, None]:
   """Loads the given split of the dataset.
 
@@ -114,7 +115,7 @@ def load(
 
     ds = tfds.load('imagenet2012:5.*.*', split=tfds_split,
                    decoders={'image': tfds.decode.SkipDecoding()},
-                   data_dir='gs://aimimagenet', download=False)
+                   data_dir=data_dir, download=False)
   else:
     raise ValueError('Only imagenet is presently supported for this dataset.')
 
