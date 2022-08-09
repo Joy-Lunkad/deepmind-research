@@ -141,7 +141,7 @@ class Experiment(experiment.AbstractExperiment):
     self._eval_input = None
 
     # Get model, loaded in from the zoo
-    module_prefix = 'nfnets.'
+    module_prefix = './'
     self.model_module = importlib.import_module(
         (module_prefix + self.config.model.lower()))
     self.net = hk.transform_with_state(self._forward_fn)
