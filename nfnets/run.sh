@@ -21,7 +21,7 @@ git clone https://github.com/Joy-Lunkad/deepmind-research.git
 cd deepmind-research/nfnets
 clear
 
-python3 experiment.py --config=experiment.py
+python3 experiment.py --config=configs.py
 
 python3 test.py
 
