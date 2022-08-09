@@ -20,6 +20,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 import importlib
 import sys
 from absl import flags
+from absl import app
 from absl import logging
 import haiku as hk
 import jax
@@ -307,6 +308,6 @@ class Experiment(experiment.AbstractExperiment):
 
 
 if __name__ == '__main__':
-
+  
   flags.mark_flag_as_required('config')
-  platform.main(Experiment, sys.argv[1:])
+  app.run(functools.partial(platform.main, Experiment))
