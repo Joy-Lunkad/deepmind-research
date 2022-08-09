@@ -35,12 +35,6 @@ import utils
 
 FLAGS = flags.FLAGS
 
-
-# We define the experiment launch config in the same file as the experiment to
-# keep things self-contained in a single file, but one might consider moving the
-# config and/or sweep functions to a separate file, if necessary.
-
-
 class Experiment(experiment.AbstractExperiment):
   """Imagenet experiment."""
   CHECKPOINT_ATTRS = {
