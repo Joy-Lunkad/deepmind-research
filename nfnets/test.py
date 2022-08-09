@@ -13,6 +13,10 @@
 # limitations under the License.
 # ==============================================================================
 """Quick script to test that experiment can import and run."""
+
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
 import jax
 import jax.numpy as jnp
 import experiment
