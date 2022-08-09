@@ -143,7 +143,7 @@ class Experiment(experiment.AbstractExperiment):
     # Get model, loaded in from the zoo
     module_prefix = './'
     self.model_module = importlib.import_module(
-        (module_prefix + self.config.model.lower()))
+        self.config.model.lower())
     self.net = hk.transform_with_state(self._forward_fn)
 
     # Assign image sizes
