@@ -23,8 +23,8 @@ def test_experiment():
   """Tests the main experiment."""
   config = experiment.get_config()
   exp_config = config.experiment_kwargs.config
-  exp_config.train_batch_size = 2
-  exp_config.eval_batch_size = 2
+  exp_config.train_batch_size = 16
+  exp_config.eval_batch_size = 16
   exp_config.lr = 0.1
   exp_config.fake_data = True
   exp_config.model_kwargs.width = 2
@@ -43,8 +43,8 @@ def test_nfnet_experiment():
   """Tests the NFNet experiment."""
   config = experiment_nfnets.get_config()
   exp_config = config.experiment_kwargs.config
-  exp_config.train_batch_size = 2
-  exp_config.eval_batch_size = 2
+  exp_config.train_batch_size = 16
+  exp_config.eval_batch_size = 16
   exp_config.lr = 0.1
   exp_config.fake_data = True
   exp_config.model_kwargs.width = 2
