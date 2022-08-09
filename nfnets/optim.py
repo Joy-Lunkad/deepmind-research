@@ -19,7 +19,7 @@ import haiku as hk
 import jax
 import jax.numpy as jnp
 import tree
-from nfnets import utils
+import utils
 
 
 class Optimizer(object):

@@ -15,8 +15,8 @@
 """Quick script to test that experiment can import and run."""
 import jax
 import jax.numpy as jnp
-from nfnets import experiment
-from nfnets import experiment_nfnets
+import experiment
+import experiment_nfnets
 
 
 def test_experiment():

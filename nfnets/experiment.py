@@ -27,9 +27,9 @@ from jaxline import platform
 from jaxline import utils as jl_utils
 from ml_collections import config_dict
 import numpy as np
-from nfnets import dataset
-from nfnets import optim
-from nfnets import utils
+import dataset
+import optim
+import utils
 # pylint: disable=logging-format-interpolation
 
 FLAGS = flags.FLAGS

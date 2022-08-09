@@ -27,7 +27,7 @@ import numpy as np
 import tensorflow.compat.v2 as tf
 import tensorflow_datasets as tfds
 import tensorflow_probability as tfp
-from nfnets import autoaugment
+import autoaugment
 
 
 Batch = Mapping[Text, np.ndarray]

@@ -15,7 +15,7 @@
 r"""ImageNet experiment with NF-RegNets."""
 
 from ml_collections import config_dict
-from nfnets import experiment
+import experiment
 
 
 def get_config():

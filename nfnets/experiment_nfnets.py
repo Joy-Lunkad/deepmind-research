@@ -21,8 +21,8 @@ import haiku as hk
 from jaxline import platform
 from ml_collections import config_dict
 
-from nfnets import experiment
-from nfnets import optim
+import experiment
+import optim
 
 FLAGS = flags.FLAGS
 

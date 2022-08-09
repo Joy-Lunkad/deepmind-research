@@ -17,7 +17,7 @@ import functools
 import haiku as hk
 import jax
 import jax.numpy as jnp
-from nfnets import base
+import base
 
 
 class ResNet(hk.Module):

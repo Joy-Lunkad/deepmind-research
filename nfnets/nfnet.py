@@ -22,9 +22,7 @@ import jax
 import jax.numpy as jnp
 import jax.random as jrandom
 import numpy as np
-
-
-from nfnets import base
+import base
 
 
 class NFNet(hk.Module):

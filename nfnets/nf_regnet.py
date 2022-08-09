@@ -18,7 +18,7 @@
 import haiku as hk
 import jax
 import jax.numpy as jnp
-from nfnets import base
+import base
 
 
 class NF_RegNet(hk.Module):
