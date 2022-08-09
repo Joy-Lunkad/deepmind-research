@@ -30,6 +30,7 @@ from jaxline import platform
 from jaxline import utils as jl_utils
 from jaxline import base_config
 from ml_collections import config_dict
+from functools import partial
 
 import numpy as np
 import dataset
