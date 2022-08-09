@@ -114,6 +114,9 @@ def get_config():
   config.checkpoint_dir='gs://resnet50-control'
   config.train_checkpoint_all_hosts = False
   config.data_dir = 'gs://aimimagenet'
+  config.save_checkpoint_interval = 600
+  config.eval_initial_weights = True
+  
   return config
 
 class Experiment(experiment.AbstractExperiment):
