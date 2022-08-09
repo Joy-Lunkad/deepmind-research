@@ -30,7 +30,7 @@ from jaxline import platform
 from jaxline import utils as jl_utils
 from jaxline import base_config
 from ml_collections import config_dict
-from functools import partial
+import functools
 
 import numpy as np
 import dataset
@@ -111,6 +111,7 @@ def get_config():
   config.log_tensors_interval = 60
   config.save_checkpoint_interval = 60
   config.eval_specific_checkpoint_dir = ''
+  config.checkpoint_dir='gs://resnet50-control'
 
   return config
 
