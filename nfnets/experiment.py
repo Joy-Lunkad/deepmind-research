@@ -14,6 +14,9 @@
 # ==============================================================================
 r"""Basic Jaxline ImageNet experiment."""
 
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
 import importlib
 import sys
 from absl import flags
@@ -385,5 +388,11 @@ class Experiment(experiment.AbstractExperiment):
 
 
 if __name__ == '__main__':
+
   flags.mark_flag_as_required('config')
+  
+  FLAGS = flags.FLAGS
+  FLAGS(sys.argv[1:])
+  print("FLAGS: ", FLAGS)
+  
   platform.main(Experiment, sys.argv[1:])
