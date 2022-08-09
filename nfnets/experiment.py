@@ -24,11 +24,9 @@ from absl import logging
 import haiku as hk
 import jax
 import jax.numpy as jnp
-from jaxline import base_config
 from jaxline import experiment
 from jaxline import platform
 from jaxline import utils as jl_utils
-from ml_collections import config_dict
 import numpy as np
 import dataset
 import optim
