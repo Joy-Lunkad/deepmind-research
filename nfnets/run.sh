@@ -1,21 +1,37 @@
-#!/bin/sh
-# Copyright 2021 Deepmind Technologies Limited.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-set -e
+gcloud compute tpus tpu-vm ssh node-1  --zone europe-west4-a
 
-python3 -m venv /tmp/nfnets_venv
-source /tmp/nfnets_venv/bin/activate
-pip3 install --upgrade pip setuptools wheel
-pip3 install -r nfnets/requirements.txt
+gcloud auth application-default login 
+pip install "jax[tpu]>=0.2.16" -f https://storage.googleapis.com/jax-releases/libtpu_releases.html
+pip install --upgrade clu
 
-python3 -m nfnets.test
+# Install screen and create new screen
+pip install screen
+screen -S train
+
+# get Joy-Lunkad/deepmind-research.git
+git clone https://github.com/Joy-Lunkad/deepmind-research.git
+cd deepmind-research/nfnets
+pip3 install -r requirements.txt
+
+# reload deepmind-research
+cd ..
+cd ..
+rm -rf deepmind-research
+git clone https://github.com/Joy-Lunkad/deepmind-research.git
+cd deepmind-research/nfnets
+clear
+
+python3 experiment.py --config=experiment.py
+
+python3 test.py
+
+
+
+
+
+
+
+
+
+
+
