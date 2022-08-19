@@ -30,8 +30,10 @@ from jaxline import platform
 from jaxline import utils as jl_utils
 from jaxline import base_config
 from ml_collections import config_dict
-import functools
 
+import functools
+import os
+import tensorflow as tf
 import numpy as np
 import dataset
 import optim
@@ -56,6 +58,8 @@ def get_config():
           config=dict(
               lr=0.1,
               num_epochs=num_epochs,
+              checkpoint_every=100,
+              eval_every=100,
               label_smoothing=0.1,
               model='ResNet',
               image_size=224,
@@ -74,7 +78,7 @@ def get_config():
               fake_data=False,
               which_loss='softmax_cross_entropy',  # For now, must be softmax
               transpose=True,  # Use the double-transpose trick?
-              bfloat16=False,
+              bfloat16=True,
               lr_schedule=dict(
                   name='WarmupCosineDecay',
                   kwargs=dict(
@@ -311,7 +315,35 @@ class Experiment(experiment.AbstractExperiment):
     self._opt_state = out['opt_states']
     self._ema_params, self._ema_state = out['ema_params'], out['ema_states']
     self.opt.plugin(self._opt_state)
-    return jl_utils.get_first(out['metrics'])
+    scalars = jl_utils.get_first(out['metrics'])
+
+    global_step_value = jl_utils.get_first(global_step)
+
+    if global_step_value < self.config.eval_every:
+          return scalars
+
+    # Save checkpoints.
+    if (global_step_value > 1 and global_step_value % self.config.checkpoint_every == 0
+        ) or global_step_value == FLAGS.config.get('training_steps', 1) - 1:
+        f_np = lambda x: np.array(jax.device_get(jl_utils.get_first(x)))
+        np_params = jax.tree_map(f_np, self._params)
+        np_state = jax.tree_map(f_np, self._state)
+        path_npy = os.path.join(FLAGS.config.checkpoint_dir, 'checkpoint.npy')
+        with tf.io.gfile.GFile(path_npy, 'wb') as fp:
+          np.save(fp, (np_params, np_state))
+        logging.info('Saved checkpoint at %s', path_npy)
+    
+    # run eval
+    if (global_step_value > 1 and global_step_value % self.config.eval_every == 0
+        ) or global_step_value == FLAGS.config.get('training_steps', 1) - 1:
+      
+      logging.info('Running synchronous evaluation...')
+      eval_scalars = self.evaluate(global_step)
+      f_list = lambda x: x.tolist() if isinstance(x, jnp.ndarray) else x
+      self._last_evaluation_scalars = jax.tree_map(f_list, eval_scalars)
+      return utils._merge_eval_scalars(scalars, self._last_evaluation_scalars)
+    
+    return utils._merge_eval_scalars(scalars, self._last_evaluation_scalars)
 
   def _build_train_input(self):
     num_devices = jax.device_count()
