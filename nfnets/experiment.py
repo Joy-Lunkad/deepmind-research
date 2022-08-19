@@ -71,7 +71,7 @@ def get_config():
               augment_before_mix=True,
               eval_preproc='crop_resize',
               train_batch_size=train_batch_size,
-              eval_batch_size=50,
+              eval_batch_size=1000,
               eval_subset='test',
               num_classes=1000,
               which_dataset='imagenet',
