@@ -113,7 +113,7 @@ def get_config():
   config.eval_specific_checkpoint_dir = ''
   config.checkpoint_dir='gs://resnet50-control'
   config.train_checkpoint_all_hosts = False
-  config.data_dir = 'gs://aimimagenet'
+  config.data_dir = 'gs://aim-imagenet'
   config.save_checkpoint_interval = 600
   config.eval_initial_weights = True
   
@@ -331,7 +331,7 @@ class Experiment(experiment.AbstractExperiment):
         augment_before_mix=self.config.get('augment_before_mix', True),
         name=self.config.which_dataset,
         fake_data=self.config.get('fake_data', False),
-        data_dir=self.config.get('data_dir', "gs://aimimagenet"))
+        data_dir=self.config.get('data_dir', "gs://aim-imagenet"))
 
   #                  _
   #   _____   ____ _| |
@@ -389,7 +389,7 @@ class Experiment(experiment.AbstractExperiment):
         name=self.config.which_dataset,
         eval_preproc=eval_preproc,
         fake_data=self.config.get('fake_data', False),
-        data_dir=self.config.get('data_dir', 'gs://aimimagenet'))
+        data_dir=self.config.get('data_dir', 'gs://aim-imagenet'))
 
 
 if __name__ == '__main__':
